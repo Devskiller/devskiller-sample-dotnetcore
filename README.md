@@ -1,11 +1,27 @@
-# C#/.NET Core with dotnet command
-## How to create custom C#/.NET programing task under .NET Core framework with dotnet tool.
+# Devskiller programming task sample - C#/.NET Core
 
-**TIP**: Please make sure to read [Getting started with programming tasks](https://help.devskiller.com/creating-tasks-and-tests/getting-started-with-programming-tasks) first.
+## Introduction
 
-You can start with our sample project that can be found on GitHub:
-[Open sample project](https://github.com/Devskiller/devskiller-sample-dotnetcore)
-[Download sample project](https://github.com/Devskiller/devskiller-sample-dotnetcore/archive/master.zip)
+With [Devskiller.com](https://devskiller.com) you can assess your candidates'
+programming skills as a part of your recruitment process. We have found that
+programming tasks are the best way to do this and have built our tests
+accordingly. The way our test works is your candidate is asked to modify the
+source code of an existing project.
+
+During the test, your candidates have the option of using our browser-based
+code editor and can build the project inside the browser at any time. If they
+would prefer to use an IDE they are more comfortable with, they can also
+download the project code or clone the project’s Git repository and work
+locally.
+
+You can check out this short video to see the test from the [candidate's
+perspective](https://devskiller.zendesk.com/hc/en-us/articles/360019534639-How-the-TalentScore-test-looks-like-from-the-candidate-perspective).
+
+This repo contains a sample project for C#/.NET Core and below you can
+find a detailed guide for creating your own programming project.
+
+**Please make sure to read our [Getting started with programming
+projects](https://devskiller.zendesk.com/hc/en-us/articles/360019531059-Getting-started-with-Programming-Tasks) guide first**
 
 ## Automatic assessment
 It is possible to automatically assess a solution posted by the candidate.
@@ -69,7 +85,7 @@ Programming task can be configured with the Devskiller project descriptor file. 
   }
 }
 ```
-You can find more details about devskiller.json descriptor in our [documentation](https://help.devskiller.com/creating-tasks-and-tests/using-custom-programming-tasks/programming-task-project-descriptor)
+You can find more details about devskiller.json descriptor in our [documentation](https://devskiller.zendesk.com/hc/en-us/articles/360019530419-Programming-task-project-descriptor)
 
 In example above, by setting `readOnlyFiles` field with a solution file, we make sure candidate won't be able to edit it. **It's important during phase of verification tests execution, don't forget to add it!**
 - `testNamePatterns` - an array of RegEx patterns which should match all the test names of verification tests. Test names should contain: `[namespace_name].[Class_name].[method_name]` . In our sample project, all verification tests are inside VerifyTests  class, so the following pattern will be sufficient:
@@ -125,7 +141,7 @@ Easiest way to have those two *.sln files is to prepare solution with verificati
 2. Make sure, each test is self-runnable and independent of external components like: native system libraries, external databases, etc.
 3. Avoid using external libraries in your source. You will never know on what operating system your code will be executed. If you need some external libraries please reference them as NuGet packages. This will make sure, you're code will behave on Devskiller platform in the same way it behaves on your environment.
 4. When needed and applicable, consider usage of in-memory database engine emulation when aplicable. It's fast to run and easy to use.
-5. Don't forget that you can utilize .NET framework references in .NET Core projects if needed - do it with caution though (maybe only in verification tests? - its up to you), you want to test candidate against .NET Core... don't you? Otherwise consider using [MSBuild](https://help.devskiller.com/creating-tasks-and-tests/using-custom-programming-tasks/cnet-with-msbuild)
+5. Don't forget that you can utilize .NET framework references in .NET Core projects if needed - do it with caution though (maybe only in verification tests? - its up to you), you want to test candidate against .NET Core... don't you? Otherwise consider using [MSBuild](https://devskiller.zendesk.com/hc/en-us/articles/360019469800-C-NET-with-MSBuild)
 6. Try to make test names clear and as short as possible. Long names will be harder to read for recruiters and can be confusing. Some test-parameter-injection methods tend to generate complex text output when executing tests. Make sure to check, if the test output looks good.
 7. Remember to describe clearly the task instructions in `README.md` file.
 8. When leaving gaps in code to be filled by candidate, consider throwing `NotImplementedException`, rather than in ex. returning `null`, `false`, `0`, etc. in your methods. As those returned values, dependent on logic, could be some edge cases, besides, the unit tests execution will instantly fail even before checking assertions, so the candidadte will be 100% sure where he is expected to make code changes.
