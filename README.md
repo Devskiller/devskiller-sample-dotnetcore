@@ -36,43 +36,15 @@ There are two kinds of unit tests:
 After the candidate finishes the test, our platform builds the project posted by the candidate and executes the verification tests and static code analysis.
 
 ## Technical details for .NET Core support
-To create automatic assessment, you'll need compilable **.NET Core solution** along with working unit tests. Any language of .NET platform can be used **(C#, F#, VisualBasic)**, though this article focus on c# only. Currently Devskiller platform supports .NET Core version: *1.0-2.2.1*
+Any language of .NET platform can be used **(C#, F#, VisualBasic)**, though this article focus on C# only. Currently supported .NET Core version by DevsSkiller platform can be checked [here](https://devskiller.com/runtime-info/).
 `Dotnet command` will be used to build, restore packages and test your code. You can use any unit-testing framework like **NUnit, XUnit or MSTest**. 
 Please refer to [msdn](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test) for details about using testing frameworks.
 Don't forget to add reference to `Microsoft.NET.Test.Sdk` in your test projects.
 
 
-## Preparing solution for automatic tests
-To prepare your solution for automatic assessment you should follow those 3 steps:
+## DevSkiller project descriptor 
 
-### 1. Prepare separate project in your solution for verification tests.
-This project should reside in separate folder in the repository. The folder structure could look like this:
-
-```
-CalculatorTask
-│   .gitignore
-│   README.md
-│   devskiller.json
-│   CalculatorSample.sln   
-│   
-└───CalculatorSample
-│      CalculatorSample.csproj
-│      Calculator.cs
-│   
-└───CalculatorSample.Tests
-│      CalculatorSample.Tests.csproj
-│      Tests.cs
-│   
-└───CalculatorSample.VerifyTests
-       CalculatorSample.sln
-       CalculatorSample.VerifyTests.csproj
-       VerifyTests.cs	
-```
-
-The **CalculatorTask\CalculatorSample.VerifyTests** folder from example above, contains the *.csproj and code file for verification tests that will be invisible for candidate. Please note there is also additional *.sln file in this folder - we will get back to it later.
-
-### 2. Prepare devskiller.json file - Devskiller project descriptor. 
-Programming task can be configured with the Devskiller project descriptor file. Just create a `devskiller.json` file and place it in the root directory of your project. Here is an example project descriptor:
+Programming task can be configured with the DevSkiller project descriptor file. Just create a `devskiller.json` file and place it in the root directory of your project. Here is an example project descriptor:
 ```
 {
   "readOnlyFiles" : [ "CalculatorSample.sln" ],
@@ -102,37 +74,6 @@ To make that happen, you must point which solution file should be overwritten - 
 ```
 "CalculatorSample.VerifyTests/CalculatorSample.sln" : "CalculatorSample.sln"
 ```
-So the last thing is to prepare proper solution files:
-
-
-### 3. Preparing two solution files.
-
-You need *two* solution files. 
-One in root folder, this is the solution file that will be used by the candidate. It should have project structure that the candidate should see, so there should be no verification test project there:
-
-`CalculatorTask\CalculatorSample.sln` solution structure:
-```
-Solution 'CalculatorSample'
-│   
-└───CalculatorSample
-│   
-└───CalculatorSample.Tests
-```
-
-Second one is the 'temporary' solution file residing in verification tests folder. **During final testing it will override the root solution file** and thanks to that, test platform will be aware of existence of `CalculatorSample.VerifyTests.csproj` in solution
-
-`CalculatorSample.VerifyTests\CalculatorSample.sln` solution structure:
-```
-Solution 'CalculatorSample'
-│   
-└───CalculatorSample
-│   
-└───CalculatorSample.Tests
-│   
-└───CalculatorSample.VerifyTests
-```
-
-Easiest way to have those two *.sln files is to prepare solution with verification tests, copy it to verification tests folder, than go back to root solution, remove the verification tests project and save it.
 
 
 ## Hints
