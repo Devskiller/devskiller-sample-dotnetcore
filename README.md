@@ -1,4 +1,4 @@
-# Devskiller programming task sample - C#/.NET Core
+# Devskiller programming task sample - C#/.NET 6
 
 ## Introduction
 
@@ -17,7 +17,7 @@ locally.
 You can check out this short video to see the test from the [candidate's
 perspective](https://devskiller.zendesk.com/hc/en-us/articles/360019534639-How-the-TalentScore-test-looks-like-from-the-candidate-perspective).
 
-This repo contains a sample project for C#/.NET Core and below you can
+This repo contains a sample project for C#/.NET 6 and below you can
 find a detailed guide for creating your own programming project.
 
 **Please make sure to read our [Getting started with programming
@@ -35,8 +35,8 @@ There are two kinds of unit tests:
 2. **Verification tests** - unit tests that are hidden from the candidate during the assessment. Files containing verification tests will be added to the project after the candidate finishes the test and will be executed during verification phase. Verification test results **WILL** be used to calculate the final score.
 After the candidate finishes the test, our platform builds the project posted by the candidate and executes the verification tests and static code analysis.
 
-## Technical details for .NET Core support
-To create automatic assessment, you'll need compilable **.NET Core solution** along with working unit tests. Any language of .NET platform can be used **(C#, F#, VisualBasic)**, though this article focus on c# only. Currently Devskiller platform supports .NET Core version: *1.0-2.2.1*
+## Technical details for .NET 6 support
+To create automatic assessment, you'll need compilable **.NET 6 solution** along with working unit tests. Any language of .NET platform can be used **(C#, F#, VisualBasic)**, though this article focus on c# only. Currently Devskiller platform supports .NET 6 version.
 `Dotnet command` will be used to build, restore packages and test your code. You can use any unit-testing framework like **NUnit, XUnit or MSTest**. 
 Please refer to [msdn](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test) for details about using testing frameworks.
 Don't forget to add reference to `Microsoft.NET.Test.Sdk` in your test projects.
@@ -137,11 +137,11 @@ Easiest way to have those two *.sln files is to prepare solution with verificati
 
 ## Hints
 
-1. Remember that you aren't bounded to unit tests. You can do some integration tests, in example .net core mvc apps are easy to instantiate within single test scope, try to use that.
+1. Remember that you aren't bounded to unit tests. You can do some integration tests, in example .NET 6 mvc apps are easy to instantiate within single test scope, try to use that.
 2. Make sure, each test is self-runnable and independent of external components like: native system libraries, external databases, etc.
 3. Avoid using external libraries in your source. You will never know on what operating system your code will be executed. If you need some external libraries please reference them as NuGet packages. This will make sure, you're code will behave on Devskiller platform in the same way it behaves on your environment.
 4. When needed and applicable, consider usage of in-memory database engine emulation when aplicable. It's fast to run and easy to use.
-5. Don't forget that you can utilize .NET framework references in .NET Core projects if needed - do it with caution though (maybe only in verification tests? - its up to you), you want to test candidate against .NET Core... don't you? Otherwise consider using [MSBuild](https://devskiller.zendesk.com/hc/en-us/articles/360019469800-C-NET-with-MSBuild)
+5. Don't forget that you can utilize .NET framework references in .NET 6 projects if needed - do it with caution though (maybe only in verification tests? - its up to you), you want to test candidate against .NET 6... don't you? Otherwise consider using [MSBuild](https://devskiller.zendesk.com/hc/en-us/articles/360019469800-C-NET-with-MSBuild)
 6. Try to make test names clear and as short as possible. Long names will be harder to read for recruiters and can be confusing. Some test-parameter-injection methods tend to generate complex text output when executing tests. Make sure to check, if the test output looks good.
 7. Remember to describe clearly the task instructions in `README.md` file.
 8. When leaving gaps in code to be filled by candidate, consider throwing `NotImplementedException`, rather than in ex. returning `null`, `false`, `0`, etc. in your methods. As those returned values, dependent on logic, could be some edge cases, besides, the unit tests execution will instantly fail even before checking assertions, so the candidadte will be 100% sure where he is expected to make code changes.
